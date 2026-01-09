@@ -1,7 +1,6 @@
 import React from 'react';
 import { useLanguage } from '../context/LanguageContext';
-import { GraduationCapIcon, CalendarIcon, MapPinIcon, ExternalLinkIcon } from 'lucide-react';
-// Sample training data
+import { GraduationCapIcon, CalendarIcon, MapPinIcon, ExternalLinkIcon, ClockIcon, DollarSignIcon } from 'lucide-react';
 const trainings = [{
   id: 1,
   title: 'Basic CPR & AED Training',
@@ -30,62 +29,88 @@ const trainings = [{
   cost: 'RM 200',
   link: '#'
 }];
-const TrainingPage = () => {
+export function TrainingPage() {
   const {
     t
   } = useLanguage();
-  return <div className="container mx-auto px-4 py-6">
-      <div className="flex items-center mb-6">
-        <GraduationCapIcon className="h-6 w-6 text-red-600 mr-2" />
-        <h1 className="text-2xl font-bold text-gray-800">
-          {t('upcomingTraining')}
-        </h1>
+  return <div className="bg-gray-50 min-h-screen pb-24">
+      <div className="bg-gradient-to-r from-red-600 to-red-500 text-white px-4 py-6">
+        <div className="container mx-auto max-w-2xl">
+          <div className="flex items-center mb-2">
+            <GraduationCapIcon className="h-7 w-7 mr-3" />
+            <h1 className="text-2xl font-bold">{t('upcomingTraining')}</h1>
+          </div>
+          <p className="text-red-50 text-sm">
+            Learn life-saving skills. Get certified in CPR and AED use.
+          </p>
+        </div>
       </div>
-      <div className="space-y-4">
-        {trainings.map(training => <div key={training.id} className="bg-white rounded-lg shadow-md p-5">
-            <h2 className="text-xl font-semibold text-gray-800">
-              {training.title}
-            </h2>
-            <p className="text-gray-600 mb-3">{training.organization}</p>
-            <div className="flex items-start mb-2">
-              <CalendarIcon className="h-5 w-5 text-gray-500 mr-2 mt-0.5" />
-              <div>
-                <div>
-                  {new Date(training.date).toLocaleDateString('en-US', {
-                weekday: 'long',
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric'
-              })}
+
+      <div className="container mx-auto px-4 py-6 max-w-2xl">
+        <div className="space-y-4">
+          {trainings.map(training => <div key={training.id} className="bg-white rounded-2xl shadow-md overflow-hidden">
+              <div className="p-6">
+                <h2 className="text-xl font-bold text-gray-900 mb-2">
+                  {training.title}
+                </h2>
+                <p className="text-gray-600 font-medium mb-4">
+                  {training.organization}
+                </p>
+
+                <div className="space-y-3 mb-5">
+                  <div className="flex items-start">
+                    <CalendarIcon className="h-5 w-5 text-red-600 mr-3 mt-0.5 flex-shrink-0" />
+                    <div>
+                      <div className="font-medium text-gray-900">
+                        {new Date(training.date).toLocaleDateString('en-US', {
+                      weekday: 'long',
+                      year: 'numeric',
+                      month: 'long',
+                      day: 'numeric'
+                    })}
+                      </div>
+                      <div className="text-gray-600 text-sm flex items-center mt-1">
+                        <ClockIcon className="h-4 w-4 mr-1" />
+                        {training.time}
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start">
+                    <MapPinIcon className="h-5 w-5 text-red-600 mr-3 mt-0.5 flex-shrink-0" />
+                    <div className="text-gray-700">{training.location}</div>
+                  </div>
+
+                  <div className="flex items-center">
+                    <DollarSignIcon className="h-5 w-5 text-red-600 mr-3 flex-shrink-0" />
+                    <div className="font-bold text-gray-900">
+                      {training.cost}
+                    </div>
+                  </div>
                 </div>
-                <div className="text-gray-600">{training.time}</div>
+
+                <a href={training.link} className="flex items-center justify-center w-full bg-red-600 text-white py-4 rounded-xl font-bold hover:bg-red-700 transition-colors active:scale-95 transform">
+                  Register Now
+                  <ExternalLinkIcon className="h-5 w-5 ml-2" />
+                </a>
               </div>
-            </div>
-            <div className="flex items-start mb-3">
-              <MapPinIcon className="h-5 w-5 text-gray-500 mr-2 mt-0.5" />
-              <div className="text-gray-700">{training.location}</div>
-            </div>
-            <div className="flex justify-between items-center">
-              <div className="font-medium">Cost: {training.cost}</div>
-              <a href={training.link} className="inline-flex items-center px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition-colors">
-                Register
-                <ExternalLinkIcon className="h-4 w-4 ml-1" />
-              </a>
-            </div>
-          </div>)}
-      </div>
-      <div className="bg-gray-100 rounded-lg p-5 mt-6">
-        <h3 className="font-semibold mb-2">
-          Want to organize a training session?
-        </h3>
-        <p className="text-gray-700 mb-3">
-          We can help coordinate CPR and AED training sessions for your
-          community, workplace, or school.
-        </p>
-        <a href="/contact" className="text-red-600 font-medium hover:text-red-800 transition-colors">
-          Contact us for more information →
-        </a>
+            </div>)}
+        </div>
+
+        <div className="bg-blue-50 border-2 border-blue-200 rounded-2xl p-6 mt-6">
+          <h3 className="font-bold text-lg text-gray-900 mb-3">
+            Want to organize a training session?
+          </h3>
+          <p className="text-gray-700 mb-4 leading-relaxed">
+            We can help coordinate CPR and AED training sessions for your
+            community, workplace, or school. Get your team trained and ready to
+            save lives.
+          </p>
+          <a href="/contact" className="inline-flex items-center text-red-600 font-bold hover:text-red-700 transition-colors">
+            Contact us for more information →
+          </a>
+        </div>
       </div>
     </div>;
-};
+}
 export default TrainingPage;

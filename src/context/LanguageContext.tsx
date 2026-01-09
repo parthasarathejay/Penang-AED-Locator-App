@@ -1,5 +1,5 @@
 import React, { useState, createContext, useContext } from 'react';
-type Language = 'en' | 'ms' | 'zh';
+type Language = 'en' | 'ms' | 'zh' | 'ta';
 interface LanguageContextType {
   language: Language;
   setLanguage: (language: Language) => void;
@@ -39,7 +39,12 @@ const translations = {
     feedbackForm: 'Feedback Form',
     message: 'Message',
     send: 'Send',
-    languageSelector: 'Language'
+    languageSelector: 'Language',
+    getDirections: 'Get Directions',
+    googleMaps: 'Google Maps',
+    waze: 'Waze',
+    distance: 'Distance',
+    youAreHere: 'You are here'
   },
   ms: {
     appName: 'Penang AED Locator',
@@ -74,7 +79,12 @@ const translations = {
     feedbackForm: 'Borang Maklum Balas',
     message: 'Mesej',
     send: 'Hantar',
-    languageSelector: 'Bahasa'
+    languageSelector: 'Bahasa',
+    getDirections: 'Dapatkan Arah',
+    googleMaps: 'Google Maps',
+    waze: 'Waze',
+    distance: 'Jarak',
+    youAreHere: 'Anda di sini'
   },
   zh: {
     appName: '槟城AED定位器',
@@ -109,12 +119,57 @@ const translations = {
     feedbackForm: '反馈表',
     message: '信息',
     send: '发送',
-    languageSelector: '语言'
+    languageSelector: '语言',
+    getDirections: '获取路线',
+    googleMaps: '谷歌地图',
+    waze: 'Waze',
+    distance: '距离',
+    youAreHere: '您在这里'
+  },
+  ta: {
+    appName: 'பெனாங் AED கண்டுபிடிப்பான்',
+    home: 'முகப்பு',
+    submitAED: 'AED சமர்ப்பிக்க',
+    reportIssue: 'சிக்கலை புகாரளிக்க',
+    cprGuide: 'CPR வழிகாட்டி',
+    training: 'பயிற்சி',
+    contact: 'தொடர்பு',
+    emergency: 'அவசர அழைப்பு',
+    nearbyAEDs: 'அருகிலுள்ள AEDகள்',
+    aedStatus: 'AED நிலை',
+    available24_7: '24/7 கிடைக்கும்',
+    limitedHours: 'வரையறுக்கப்பட்ட நேரங்கள்',
+    outOfService: 'சேவையில் இல்லை',
+    cprSteps: 'CPR படிகள்',
+    step1: '1. பதிலளிப்பை சரிபார்க்கவும்',
+    step2: '2. உதவிக்கு அழைக்கவும் (999)',
+    step3: '3. மார்பு அழுத்தங்களைத் தொடங்குங்கள்',
+    step4: '4. மீட்பு மூச்சுக்களைக் கொடுங்கள்',
+    step5: '5. உதவி வரும் வரை CPR தொடரவும்',
+    startMetronome: 'மெட்ரோனோம் தொடங்க',
+    stopMetronome: 'மெட்ரோனோம் நிறுத்த',
+    upcomingTraining: 'வரவிருக்கும் பயிற்சி',
+    submitNewAED: 'புதிய AED சமர்ப்பிக்க',
+    location: 'இடம்',
+    accessHours: 'அணுகல் நேரங்கள்',
+    photo: 'புகைப்படம்',
+    submit: 'சமர்ப்பிக்க',
+    reportMissingAED: 'காணாமல் போன அல்லது சேதமடைந்த AED அறிக்கை',
+    description: 'விளக்கம்',
+    feedbackForm: 'கருத்து படிவம்',
+    message: 'செய்தி',
+    send: 'அனுப்பு',
+    languageSelector: 'மொழி',
+    getDirections: 'வழிகளைப் பெறுங்கள்',
+    googleMaps: 'கூகுள் மேப்ஸ்',
+    waze: 'Waze',
+    distance: 'தூரம்',
+    youAreHere: 'நீங்கள் இங்கே இருக்கிறீர்கள்'
   }
 };
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 export const LanguageProvider: React.FC<{
-  children: ReactNode;
+  children: React.ReactNode;
 }> = ({
   children
 }) => {

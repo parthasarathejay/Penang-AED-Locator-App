@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import HomePage from './pages/HomePage';
 import SubmitAEDPage from './pages/SubmitAEDPage';
@@ -6,15 +6,16 @@ import ReportIssuePage from './pages/ReportIssuePage';
 import CPRGuidePage from './pages/CPRGuidePage';
 import TrainingPage from './pages/TrainingPage';
 import ContactPage from './pages/ContactPage';
-import Header from './components/Header';
+import TopBar from './components/TopBar';
+import BottomNav from './components/BottomNav';
 import EmergencyButton from './components/EmergencyButton';
 import { LanguageProvider } from './context/LanguageContext';
 export function App() {
   return <LanguageProvider>
       <Router>
         <div className="flex flex-col min-h-screen bg-gray-50">
-          <Header />
-          <main className="flex-grow">
+          <TopBar />
+          <main className="flex-grow pb-20">
             <Routes>
               <Route path="/" element={<HomePage />} />
               <Route path="/submit-aed" element={<SubmitAEDPage />} />
@@ -24,6 +25,7 @@ export function App() {
               <Route path="/contact" element={<ContactPage />} />
             </Routes>
           </main>
+          <BottomNav />
           <EmergencyButton />
         </div>
       </Router>
