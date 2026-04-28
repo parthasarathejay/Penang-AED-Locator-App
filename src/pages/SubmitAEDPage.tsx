@@ -1,130 +1,67 @@
-import React, { useState } from 'react';
-import { useLanguage } from '../context/LanguageContext';
-import { PlusCircleIcon, MapPinIcon, ClockIcon, ImageIcon, SendIcon } from 'lucide-react';
-const SubmitAEDPage = () => {
-  const {
-    t
-  } = useLanguage();
-  const [location, setLocation] = useState('');
-  const [accessHours, setAccessHours] = useState('');
-  const [photo, setPhoto] = useState<File | null>(null);
-  const [photoPreview, setPhotoPreview] = useState<string | null>(null);
-  const [submitting, setSubmitting] = useState(false);
-  const [submitted, setSubmitted] = useState(false);
-  const handlePhotoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files[0]) {
-      const selectedFile = e.target.files[0];
-      setPhoto(selectedFile);
-      // Create preview URL
-      const reader = new FileReader();
-      reader.onload = event => {
-        setPhotoPreview(event.target?.result as string);
-      };
-      reader.readAsDataURL(selectedFile);
-    }
-  };
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setSubmitting(true);
-    // Simulate form submission
-    setTimeout(() => {
-      setSubmitting(false);
-      setSubmitted(true);
-      setLocation('');
-      setAccessHours('');
-      setPhoto(null);
-      setPhotoPreview(null);
-    }, 1500);
-  };
-  if (submitted) {
-    return <div className="container mx-auto px-4 py-6">
-        <div className="bg-white rounded-lg shadow-md p-6 text-center">
-          <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-            <SendIcon className="h-8 w-8 text-green-600" />
+import React from 'react';
+import { PlusCircleIcon, AlertTriangleIcon, MapPinIcon } from 'lucide-react';
+const GOOGLE_FORM_SUBMIT_AED = 'https://forms.google.com/submit-aed-placeholder';
+const GOOGLE_FORM_REPORT_ISSUE =
+'https://forms.google.com/report-issue-placeholder';
+export function SubmitAEDPage() {
+  return (
+    <div className="bg-gray-50 min-h-screen pb-24">
+      <div className="bg-gradient-to-r from-red-600 to-red-500 text-white px-4 py-8">
+        <div className="container mx-auto max-w-2xl text-center">
+          <div className="bg-white/20 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+            <MapPinIcon className="h-8 w-8 text-white" />
           </div>
-          <h2 className="text-2xl font-bold mb-2">Thank You!</h2>
-          <p className="text-gray-600 mb-6">
-            Your AED submission has been received. Our team will verify the
-            information.
+          <h1 className="text-2xl font-bold mb-2">Help Us Map Penang</h1>
+          <p className="text-red-50 text-sm leading-relaxed max-w-md mx-auto">
+            Your contributions help save lives. Add new AED locations or report
+            issues with existing ones to keep our community safe.
           </p>
-          <button onClick={() => setSubmitted(false)} className="px-6 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors">
-            Submit Another AED
-          </button>
         </div>
-      </div>;
-  }
-  return <div className="container mx-auto px-4 py-6">
-      <div className="flex items-center mb-6">
-        <PlusCircleIcon className="h-6 w-6 text-red-600 mr-2" />
-        <h1 className="text-2xl font-bold text-gray-800">
-          {t('submitNewAED')}
-        </h1>
       </div>
-      <div className="bg-white rounded-lg shadow-md p-6">
-        <form onSubmit={handleSubmit}>
-          <div className="mb-4">
-            <label className="block text-gray-700 font-medium mb-2" htmlFor="location">
-              <div className="flex items-center">
-                <MapPinIcon className="h-5 w-5 mr-1" />
-                {t('location')}
-              </div>
-            </label>
-            <input type="text" id="location" value={location} onChange={e => setLocation(e.target.value)} className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500" placeholder="Building name and address" required />
-          </div>
-          <div className="mb-4">
-            <label className="block text-gray-700 font-medium mb-2" htmlFor="accessHours">
-              <div className="flex items-center">
-                <ClockIcon className="h-5 w-5 mr-1" />
-                {t('accessHours')}
-              </div>
-            </label>
-            <select id="accessHours" value={accessHours} onChange={e => setAccessHours(e.target.value)} className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500" required>
-              <option value="">Select access hours</option>
-              <option value="24/7">Available 24/7</option>
-              <option value="limited">
-                Limited hours (please specify in notes)
-              </option>
-              <option value="unknown">Unknown</option>
-            </select>
-          </div>
-          <div className="mb-6">
-            <label className="block text-gray-700 font-medium mb-2" htmlFor="photo">
-              <div className="flex items-center">
-                <ImageIcon className="h-5 w-5 mr-1" />
-                {t('photo')}
-              </div>
-            </label>
-            <div className="border-2 border-dashed border-gray-300 rounded-lg p-4 text-center">
-              <input type="file" id="photo" accept="image/*" onChange={handlePhotoChange} className="hidden" />
-              {photoPreview ? <div className="relative">
-                  <img src={photoPreview} alt="AED Preview" className="mx-auto h-48 object-contain mb-2" />
-                  <button type="button" onClick={() => {
-                setPhoto(null);
-                setPhotoPreview(null);
-              }} className="text-red-600 hover:text-red-800">
-                    Remove photo
-                  </button>
-                </div> : <label htmlFor="photo" className="cursor-pointer">
-                  <div className="flex flex-col items-center justify-center py-4">
-                    <ImageIcon className="h-10 w-10 text-gray-400 mb-2" />
-                    <p className="text-gray-600">
-                      Click to upload a photo of the AED
-                    </p>
-                    <p className="text-gray-400 text-sm">
-                      (Optional but helpful)
-                    </p>
-                  </div>
-                </label>}
+
+      <div className="container mx-auto px-4 py-8 max-w-2xl space-y-6">
+        <a
+          href={GOOGLE_FORM_SUBMIT_AED}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="block bg-white rounded-2xl shadow-md p-6 hover:shadow-lg transition-all active:scale-95 transform border-2 border-transparent hover:border-blue-500">
+          
+          <div className="flex items-center">
+            <div className="bg-blue-100 p-4 rounded-full mr-4">
+              <PlusCircleIcon className="h-8 w-8 text-blue-600" />
+            </div>
+            <div>
+              <h2 className="text-xl font-bold text-gray-900 mb-1">
+                Submit New AED
+              </h2>
+              <p className="text-gray-600 text-sm">
+                Know an AED location that isn't on our map? Add it here.
+              </p>
             </div>
           </div>
-          <button type="submit" disabled={submitting} className="w-full bg-red-600 text-white py-3 rounded-lg font-medium hover:bg-red-700 transition-colors focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2">
-            {submitting ? <div className="flex items-center justify-center">
-                <div className="animate-spin rounded-full h-5 w-5 border-t-2 border-b-2 border-white mr-2"></div>
-                Processing...
-              </div> : t('submit')}
-          </button>
-        </form>
+        </a>
+
+        <a
+          href={GOOGLE_FORM_REPORT_ISSUE}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="block bg-white rounded-2xl shadow-md p-6 hover:shadow-lg transition-all active:scale-95 transform border-2 border-transparent hover:border-orange-500">
+          
+          <div className="flex items-center">
+            <div className="bg-orange-100 p-4 rounded-full mr-4">
+              <AlertTriangleIcon className="h-8 w-8 text-orange-600" />
+            </div>
+            <div>
+              <h2 className="text-xl font-bold text-gray-900 mb-1">
+                Report an Issue
+              </h2>
+              <p className="text-gray-600 text-sm">
+                AED missing, damaged, or details incorrect? Let us know.
+              </p>
+            </div>
+          </div>
+        </a>
       </div>
-    </div>;
-};
-export default SubmitAEDPage;
+    </div>);
+
+}

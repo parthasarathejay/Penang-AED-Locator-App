@@ -7,7 +7,7 @@ interface LanguageContextType {
 }
 const translations = {
   en: {
-    appName: 'Penang AED Locator',
+    appName: 'NADI',
     home: 'Home',
     submitAED: 'Submit AED',
     reportIssue: 'Report Issue',
@@ -47,7 +47,7 @@ const translations = {
     youAreHere: 'You are here'
   },
   ms: {
-    appName: 'Penang AED Locator',
+    appName: 'NADI',
     home: 'Laman Utama',
     submitAED: 'Hantar AED',
     reportIssue: 'Laporkan Isu',
@@ -87,7 +87,7 @@ const translations = {
     youAreHere: 'Anda di sini'
   },
   zh: {
-    appName: '槟城AED定位器',
+    appName: 'NADI',
     home: '主页',
     submitAED: '提交AED',
     reportIssue: '报告问题',
@@ -127,7 +127,7 @@ const translations = {
     youAreHere: '您在这里'
   },
   ta: {
-    appName: 'பெனாங் AED கண்டுபிடிப்பான்',
+    appName: 'NADI',
     home: 'முகப்பு',
     submitAED: 'AED சமர்ப்பிக்க',
     reportIssue: 'சிக்கலை புகாரளிக்க',
@@ -167,23 +167,31 @@ const translations = {
     youAreHere: 'நீங்கள் இங்கே இருக்கிறீர்கள்'
   }
 };
-const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
+const LanguageContext = createContext<LanguageContextType | undefined>(
+  undefined
+);
 export const LanguageProvider: React.FC<{
   children: React.ReactNode;
-}> = ({
-  children
-}) => {
+}> = ({ children }) => {
   const [language, setLanguage] = useState<Language>('en');
   const t = (key: string): string => {
-    return translations[language][key as keyof (typeof translations)[typeof language]] || key;
+    return (
+      translations[language][
+      key as keyof (typeof translations)[typeof language]] ||
+      key);
+
   };
-  return <LanguageContext.Provider value={{
-    language,
-    setLanguage,
-    t
-  }}>
+  return (
+    <LanguageContext.Provider
+      value={{
+        language,
+        setLanguage,
+        t
+      }}>
+      
       {children}
-    </LanguageContext.Provider>;
+    </LanguageContext.Provider>);
+
 };
 export const useLanguage = (): LanguageContextType => {
   const context = useContext(LanguageContext);

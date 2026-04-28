@@ -1,7 +1,15 @@
 import React from 'react';
 import { useLanguage } from '../context/LanguageContext';
-import { GraduationCapIcon, CalendarIcon, MapPinIcon, ExternalLinkIcon, ClockIcon, DollarSignIcon } from 'lucide-react';
-const trainings = [{
+import {
+  GraduationCapIcon,
+  CalendarIcon,
+  MapPinIcon,
+  ExternalLinkIcon,
+  ClockIcon,
+  DollarSignIcon } from
+'lucide-react';
+const trainings = [
+{
   id: 1,
   title: 'Basic CPR & AED Training',
   organization: 'Penang Heart Safe Society',
@@ -10,7 +18,8 @@ const trainings = [{
   location: 'Penang General Hospital, Training Room 2',
   cost: 'Free',
   link: '#'
-}, {
+},
+{
   id: 2,
   title: 'Community First Aid & CPR',
   organization: 'Malaysian Red Crescent Society',
@@ -19,7 +28,8 @@ const trainings = [{
   location: 'MRCS Penang Branch, George Town',
   cost: 'RM 150',
   link: '#'
-}, {
+},
+{
   id: 3,
   title: 'Workplace First Aid Certification',
   organization: 'St. John Ambulance',
@@ -29,11 +39,11 @@ const trainings = [{
   cost: 'RM 200',
   link: '#'
 }];
+
 export function TrainingPage() {
-  const {
-    t
-  } = useLanguage();
-  return <div className="bg-gray-50 min-h-screen pb-24">
+  const { t } = useLanguage();
+  return (
+    <div className="bg-gray-50 min-h-screen pb-24">
       <div className="bg-gradient-to-r from-red-600 to-red-500 text-white px-4 py-6">
         <div className="container mx-auto max-w-2xl">
           <div className="flex items-center mb-2">
@@ -48,7 +58,11 @@ export function TrainingPage() {
 
       <div className="container mx-auto px-4 py-6 max-w-2xl">
         <div className="space-y-4">
-          {trainings.map(training => <div key={training.id} className="bg-white rounded-2xl shadow-md overflow-hidden">
+          {trainings.map((training) =>
+          <div
+            key={training.id}
+            className="bg-white rounded-2xl shadow-md overflow-hidden">
+            
               <div className="p-6">
                 <h2 className="text-xl font-bold text-gray-900 mb-2">
                   {training.title}
@@ -63,11 +77,11 @@ export function TrainingPage() {
                     <div>
                       <div className="font-medium text-gray-900">
                         {new Date(training.date).toLocaleDateString('en-US', {
-                      weekday: 'long',
-                      year: 'numeric',
-                      month: 'long',
-                      day: 'numeric'
-                    })}
+                        weekday: 'long',
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric'
+                      })}
                       </div>
                       <div className="text-gray-600 text-sm flex items-center mt-1">
                         <ClockIcon className="h-4 w-4 mr-1" />
@@ -89,12 +103,16 @@ export function TrainingPage() {
                   </div>
                 </div>
 
-                <a href={training.link} className="flex items-center justify-center w-full bg-red-600 text-white py-4 rounded-xl font-bold hover:bg-red-700 transition-colors active:scale-95 transform">
+                <a
+                href={training.link}
+                className="flex items-center justify-center w-full bg-red-600 text-white py-4 rounded-xl font-bold hover:bg-red-700 transition-colors active:scale-95 transform">
+                
                   Register Now
                   <ExternalLinkIcon className="h-5 w-5 ml-2" />
                 </a>
               </div>
-            </div>)}
+            </div>
+          )}
         </div>
 
         <div className="bg-blue-50 border-2 border-blue-200 rounded-2xl p-6 mt-6">
@@ -106,11 +124,15 @@ export function TrainingPage() {
             community, workplace, or school. Get your team trained and ready to
             save lives.
           </p>
-          <a href="/contact" className="inline-flex items-center text-red-600 font-bold hover:text-red-700 transition-colors">
+          <a
+            href="/contact"
+            className="inline-flex items-center text-red-600 font-bold hover:text-red-700 transition-colors">
+            
             Contact us for more information →
           </a>
         </div>
       </div>
-    </div>;
+    </div>);
+
 }
 export default TrainingPage;

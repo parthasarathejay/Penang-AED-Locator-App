@@ -1,10 +1,15 @@
 import React, { useState } from 'react';
 import { useLanguage } from '../context/LanguageContext';
-import { MailIcon, UserIcon, MessageSquareIcon, SendIcon, QuoteIcon, HeartIcon } from 'lucide-react';
+import {
+  MailIcon,
+  UserIcon,
+  MessageSquareIcon,
+  SendIcon,
+  QuoteIcon,
+  HeartIcon } from
+'lucide-react';
 export function ContactPage() {
-  const {
-    t
-  } = useLanguage();
+  const { t } = useLanguage();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
@@ -22,7 +27,8 @@ export function ContactPage() {
     }, 1500);
   };
   if (submitted) {
-    return <div className="bg-gray-50 min-h-screen pb-24">
+    return (
+      <div className="bg-gray-50 min-h-screen pb-24">
         <div className="container mx-auto px-4 py-12 max-w-2xl">
           <div className="bg-white rounded-2xl shadow-lg p-8 text-center">
             <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -35,14 +41,19 @@ export function ContactPage() {
               Thank you for your message. We'll get back to you as soon as
               possible.
             </p>
-            <button onClick={() => setSubmitted(false)} className="px-8 py-4 bg-red-600 text-white rounded-xl font-bold hover:bg-red-700 transition-colors active:scale-95 transform">
+            <button
+              onClick={() => setSubmitted(false)}
+              className="px-8 py-4 bg-red-600 text-white rounded-xl font-bold hover:bg-red-700 transition-colors active:scale-95 transform">
+              
               Send Another Message
             </button>
           </div>
         </div>
-      </div>;
+      </div>);
+
   }
-  return <div className="bg-gray-50 min-h-screen pb-24">
+  return (
+    <div className="bg-gray-50 min-h-screen pb-24">
       <div className="bg-gradient-to-r from-red-600 to-red-500 text-white px-4 py-6">
         <div className="container mx-auto max-w-2xl">
           <div className="flex items-center mb-2">
@@ -109,47 +120,88 @@ export function ContactPage() {
           </h2>
           <form onSubmit={handleSubmit}>
             <div className="mb-5">
-              <label className="block text-gray-700 font-medium mb-2 text-base" htmlFor="name">
+              <label
+                className="block text-gray-700 font-medium mb-2 text-base"
+                htmlFor="name">
+                
                 <div className="flex items-center">
                   <UserIcon className="h-5 w-5 mr-2 text-red-600" />
                   Name
                 </div>
               </label>
-              <input type="text" id="name" value={name} onChange={e => setName(e.target.value)} className="w-full px-4 py-4 border-2 border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent text-base" placeholder="Your name" required />
+              <input
+                type="text"
+                id="name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                className="w-full px-4 py-4 border-2 border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent text-base"
+                placeholder="Your name"
+                required />
+              
             </div>
 
             <div className="mb-5">
-              <label className="block text-gray-700 font-medium mb-2 text-base" htmlFor="email">
+              <label
+                className="block text-gray-700 font-medium mb-2 text-base"
+                htmlFor="email">
+                
                 <div className="flex items-center">
                   <MailIcon className="h-5 w-5 mr-2 text-red-600" />
                   Email
                 </div>
               </label>
-              <input type="email" id="email" value={email} onChange={e => setEmail(e.target.value)} className="w-full px-4 py-4 border-2 border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent text-base" placeholder="your.email@example.com" required />
+              <input
+                type="email"
+                id="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="w-full px-4 py-4 border-2 border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent text-base"
+                placeholder="your.email@example.com"
+                required />
+              
             </div>
 
             <div className="mb-6">
-              <label className="block text-gray-700 font-medium mb-2 text-base" htmlFor="message">
+              <label
+                className="block text-gray-700 font-medium mb-2 text-base"
+                htmlFor="message">
+                
                 <div className="flex items-center">
                   <MessageSquareIcon className="h-5 w-5 mr-2 text-red-600" />
                   {t('message')}
                 </div>
               </label>
-              <textarea id="message" value={message} onChange={e => setMessage(e.target.value)} className="w-full px-4 py-4 border-2 border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent h-40 text-base resize-none" placeholder="Your message or feedback" required></textarea>
+              <textarea
+                id="message"
+                value={message}
+                onChange={(e) => setMessage(e.target.value)}
+                className="w-full px-4 py-4 border-2 border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent h-40 text-base resize-none"
+                placeholder="Your message or feedback"
+                required>
+              </textarea>
             </div>
 
-            <button type="submit" disabled={submitting} className="w-full bg-red-600 text-white py-4 rounded-xl font-bold text-lg hover:bg-red-700 transition-colors focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 active:scale-95 transform disabled:opacity-50 disabled:cursor-not-allowed">
-              {submitting ? <div className="flex items-center justify-center">
+            <button
+              type="submit"
+              disabled={submitting}
+              className="w-full bg-red-600 text-white py-4 rounded-xl font-bold text-lg hover:bg-red-700 transition-colors focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 active:scale-95 transform disabled:opacity-50 disabled:cursor-not-allowed">
+              
+              {submitting ?
+              <div className="flex items-center justify-center">
                   <div className="animate-spin rounded-full h-6 w-6 border-3 border-white border-t-transparent mr-3"></div>
                   Sending...
-                </div> : <div className="flex items-center justify-center">
+                </div> :
+
+              <div className="flex items-center justify-center">
                   <SendIcon className="h-5 w-5 mr-2" />
                   {t('send')}
-                </div>}
+                </div>
+              }
             </button>
           </form>
         </div>
       </div>
-    </div>;
+    </div>);
+
 }
 export default ContactPage;

@@ -8,9 +8,7 @@ const CPRMetronome = () => {
   const audioContextRef = useRef<AudioContext | null>(null);
   const intervalRef = useRef<number | null>(null);
   const flashIntervalRef = useRef<number | null>(null);
-  const {
-    t
-  } = useLanguage();
+  const { t } = useLanguage();
   useEffect(() => {
     return () => {
       if (intervalRef.current) {
@@ -26,7 +24,8 @@ const CPRMetronome = () => {
   }, []);
   const playClick = () => {
     if (!audioContextRef.current) {
-      audioContextRef.current = new (window.AudioContext || (window as any).webkitAudioContext)();
+      audioContextRef.current = new (window.AudioContext ||
+      (window as any).webkitAudioContext)();
     }
     const context = audioContextRef.current;
     const oscillator = context.createOscillator();
@@ -58,31 +57,60 @@ const CPRMetronome = () => {
     }
     setIsPlaying(!isPlaying);
   };
-  return <div className="flex flex-col items-center">
-      <div className={`relative w-32 h-32 rounded-full flex items-center justify-center mb-6 ${isPlaying ? 'bg-red-600' : 'bg-gray-300'} ${flashActive ? 'ring-4 ring-red-300' : ''}`}>
+  return (
+    <div className="flex flex-col items-center">
+      {/* Full screen flash for deaf accessibility */}
+      {isPlaying && flashActive &&
+      <div className="fixed inset-0 bg-red-500 opacity-30 z-50 pointer-events-none transition-opacity duration-75"></div>
+      }
+
+      <div
+        className={`relative w-32 h-32 rounded-full flex items-center justify-center mb-6 ${isPlaying ? 'bg-red-600' : 'bg-gray-300'} ${flashActive ? 'ring-4 ring-red-300' : ''}`}>
+        
         <span className="text-white text-3xl font-bold">{bpm}</span>
-        {isPlaying && <div className={`absolute inset-0 rounded-full ${flashActive ? 'bg-red-400 opacity-50' : 'bg-transparent'} transition-colors duration-100`}></div>}
-        {isPlaying && <div className="absolute -inset-3 rounded-full border-4 border-red-400 animate-ping opacity-75"></div>}
+        {isPlaying &&
+        <div
+          className={`absolute inset-0 rounded-full ${flashActive ? 'bg-red-400 opacity-50' : 'bg-transparent'} transition-colors duration-100`}>
+        </div>
+        }
+        {isPlaying &&
+        <div className="absolute -inset-3 rounded-full border-4 border-red-400 animate-ping opacity-75"></div>
+        }
       </div>
       <div className="w-full max-w-xs bg-gray-200 h-2 mb-4 rounded-full overflow-hidden">
-        {isPlaying && <div className="h-full bg-red-600 animate-pulse" style={{
-        animation: `pulse ${60 / bpm}s infinite`,
-        width: flashActive ? '100%' : '30%'
-      }}></div>}
+        {isPlaying &&
+        <div
+          className="h-full bg-red-600 animate-pulse"
+          style={{
+            animation: `pulse ${60 / bpm}s infinite`,
+            width: flashActive ? '100%' : '30%'
+          }}>
+        </div>
+        }
       </div>
-      <button onClick={toggleMetronome} className={`flex items-center justify-center px-8 py-4 rounded-lg text-white font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 ${isPlaying ? 'bg-red-600 hover:bg-red-700 focus:ring-red-500' : 'bg-green-600 hover:bg-green-700 focus:ring-green-500'}`}>
-        {isPlaying ? <>
+      <button
+        onClick={toggleMetronome}
+        className={`flex items-center justify-center px-8 py-4 rounded-lg text-white font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 ${isPlaying ? 'bg-red-600 hover:bg-red-700 focus:ring-red-500' : 'bg-green-600 hover:bg-green-700 focus:ring-green-500'}`}>
+        
+        {isPlaying ?
+        <>
             <PauseIcon className="h-5 w-5 mr-2" />
             {t('stopMetronome')}
-          </> : <>
+          </> :
+
+        <>
             <PlayIcon className="h-5 w-5 mr-2" />
             {t('startMetronome')}
-          </>}
+          </>
+        }
       </button>
-      {isPlaying && <p className="text-sm text-gray-600 mt-4 text-center">
+      {isPlaying &&
+      <p className="text-sm text-gray-600 mt-4 text-center">
           Follow the visual and audio cues to maintain the correct compression
           rhythm.
-        </p>}
-    </div>;
+        </p>
+      }
+    </div>);
+
 };
 export default CPRMetronome;

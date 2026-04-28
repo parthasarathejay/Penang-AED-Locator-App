@@ -1,10 +1,9 @@
 import React from 'react';
 import { useLanguage } from '../context/LanguageContext';
 const AEDStatusLegend = () => {
-  const {
-    t
-  } = useLanguage();
-  return <div className="bg-white p-4 rounded-lg shadow-md">
+  const { t } = useLanguage();
+  return (
+    <div className="bg-white p-4 rounded-lg shadow-md">
       <h3 className="font-semibold mb-2">{t('aedStatus')}</h3>
       <div className="space-y-2">
         <div className="flex items-center">
@@ -20,6 +19,7 @@ const AEDStatusLegend = () => {
           <span>{t('outOfService')}</span>
         </div>
       </div>
-    </div>;
+    </div>);
+
 };
 export default AEDStatusLegend;

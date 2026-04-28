@@ -4,35 +4,28 @@ import { NearestAEDCard } from '../components/NearestAEDCard';
 import { QuickActions } from '../components/QuickActions';
 import { NearbyAEDList } from '../components/NearbyAEDList';
 import { useLanguage } from '../context/LanguageContext';
-import { AlertCircleIcon } from 'lucide-react';
 export function HomePage() {
-  const {
-    t
-  } = useLanguage();
-  const [userLocation, setUserLocation] = useState<[number, number] | null>(null);
+  const { t } = useLanguage();
+  const [userLocation, setUserLocation] = useState<[number, number] | null>(
+    null
+  );
   useEffect(() => {
     if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(position => {
-        setUserLocation([position.coords.latitude, position.coords.longitude]);
-      }, error => {
-        console.error('Error getting location:', error);
-        setUserLocation([5.4164, 100.3092]);
-      });
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          setUserLocation([position.coords.latitude, position.coords.longitude]);
+        },
+        (error) => {
+          console.error('Error getting location:', error);
+          setUserLocation([5.4164, 100.3092]);
+        }
+      );
     } else {
       setUserLocation([5.4164, 100.3092]);
     }
   }, []);
-  return <div className="bg-gray-50 min-h-screen pb-24">
-      {/* Emergency Alert Banner */}
-      <div className="bg-red-600 text-white px-4 py-3">
-        <div className="flex items-center justify-center">
-          <AlertCircleIcon className="h-5 w-5 mr-2 flex-shrink-0" />
-          <p className="text-sm font-medium text-center">
-            In a cardiac emergency, every second counts
-          </p>
-        </div>
-      </div>
-
+  return (
+    <div className="bg-gray-50 min-h-screen pb-24">
       <div className="container mx-auto px-4 py-6 max-w-2xl">
         {/* Nearest AED Card */}
         <NearestAEDCard userLocation={userLocation} />
@@ -72,6 +65,7 @@ export function HomePage() {
           </div>
         </div>
       </div>
-    </div>;
+    </div>);
+
 }
 export default HomePage;
